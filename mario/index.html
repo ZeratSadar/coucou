@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>HTML5 Mario</title>
+		<meta name="keywords" content="Florian Rappl, Mario5, Regensburg, Super, Mario, HTML5, JavaScript, MVC, Level, Leveleditor, Editor, Mario, Bros" />
+		<meta name="description" content="Play, edit, save and rate levels in the Mario universe directly in your browser." />
+		<meta name="author" content="Martin Buchner, Patrick Saar, Florian Rappl" />
+		<meta name="viewport" content="width=640, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+		<link href="Content/mario.css"  rel="stylesheet" />
+	</head>
+	<body class="no-overflow">
+		<div id="toppanel">
+			<nav id="topnav">
+				<div class="topmenu topicon" id="soundButton"><img alt="Sound" src="Content/sound_on.png" data-sound-on="Turn music off" data-sound-off="Turn music on" /></div>
+				<div class="topmenu tophead" id="menuButton">Menu</div>
+				<div class="topmenu topicon" id="controlsButton"><img alt="Controls" src="Content/controls.png" title="Controls" /></div>
+				<div class="topmenu topicon" id="infoButton"><img alt="About" src="Content/info.png" title="About" /></div>
+			</nav>
+		</div>
+		<div id="loading">
+			<script>document.write('<p><img src="Content/startloading.gif" border=0></p><p>HTML5 Mario is loading ...</p>')</script>
+			<noscript>This game requires JavaScript!</noscript>
+		</div>
+		<div id="sections">
+			<div id="controls" class="layer">
+				<div class="exit">X</div>
+				<p><span class="control">&larr;</span>move left</p>
+				<p><span class="control">&rarr;</span>move right</p>
+				<p><span class="control">&uarr;</span>jump</p>
+				<p><span class="control">&darr;</span>duck</p>
+				<p><span class="control">a</span>sprint + shoot</p>
+			</div>
+			<div id="info" class="layer">
+				<div class="exit">X</div>
+				<p>Level design and styling: <i>Patrick Saar</i></p>
+				<p>Level design and artwork: <i>Martin Buchner</i></p>
+				<p>Coding and webpage: <i>Florian Rappl</i></p>
+			</div>
+			<div id="success" class="layer">
+				<div class="exit">X</div>
+				<p>The level has been saved successfully.</p>
+			</div>
+			<div id="failure" class="layer">
+				<div class="exit">X</div>
+				<p>The level could not be saved.</p>
+			</div>
+			<div id="thanks" class="layer">
+				<div class="exit">X</div>
+				<p>Thanks for your vote!</p>
+			</div>
+			<div id="dynamic" class="layer">
+				<div class="exit">X</div>
+				<div id="dynamic-content"></div>
+			</div>
+			<div id="continue" class="section">
+			Do you want to continue with your last game or do you want to do restart?
+			</div>
+			<div id="menu" class="section">
+				<img src="Content/images/menu0.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu1.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu2.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu3.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu4.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu5.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu6.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu7.jpg" class="dia" alt="Dia" />
+				<img src="Content/images/menu8.jpg" class="dia" alt="Dia" />
+			</div>
+			<div id="editor" class="section">
+			Do you want to create a new level, continue on the current one or load an existing one?
+			</div>
+			<div id="edit" class="section">
+				<div id="edit_world">
+				</div>
+				<div id="editorBackgrounds" class="editorPanel">
+					<h3>Level background</h3>
+					<img src="Content/backgrounds/01.png" class="picked editorBackground" alt="Background" />
+					<img src="Content/backgrounds/02.png" class="editorBackground" alt="Background" />
+					<img src="Content/backgrounds/03.png" class="editorBackground" alt="Background" />
+					<img src="Content/backgrounds/04.png" class="editorBackground" alt="Background" />
+					<img src="Content/backgrounds/05.png" class="editorBackground" alt="Background" />
+					<img src="Content/backgrounds/06.png" class="editorBackground" alt="Background" />
+					<img src="Content/backgrounds/07.png" class="editorBackground" alt="Background" />
+					<img src="Content/backgrounds/08.png" class="editorBackground" alt="Background" />
+				</div>
+				<div id="editorOptions" class="editorPanel">
+					<h3>Options</h3>
+					<p>Level width in blocks: <span id="range_value">100</span></p>
+					<p><input value="100" type="range" min="30" max="400" step="1" id="canvas_width" /></p>
+				</div>
+				<div id="editorBricks" class="editorPanel">
+					<h3>Bricks</h3>
+					<div id="editorBricksItems" class="editorItems"></div>
+				</div>
+				<div id="editorFigures" class="editorPanel">
+					<h3>Figuren</h3>
+					<div id="editorFiguresItems" class="editorItems"></div>
+				</div>
+				<div id="editorSpecial" class="editorPanel">
+					<h3>Special bricks</h3>
+					<div id="editorSpecialItems" class="editorItems"></div>
+				</div>
+			</div>
+			<div id="game" class="section">
+				<div id="coinNumber" class="gauge">0</div>
+				<div id="coin" class="gaugeSprite"></div>
+				<div id="liveNumber" class="gauge">0</div>
+				<div id="live" class="gaugeSprite"></div>
+				<div id="world"></div>
+			</div>
+			<div id="endingContainer">
+				<div id="ending">
+					<div id="endingAnimation">
+					</div>
+					<div id="credits">
+						<div id="credits-end">The End</div>
+						This game has been created as a final project in the course
+						<br />
+						<i>"Programming and Design of WebApplications using HTML5, CSS3 and JavaScript"</i>
+						<br /> 
+						at the University of Regensburg.
+						<div id="credits-programming">Programming</div>
+						Level design and styling:
+						<br /><br />
+						<i>Patrick Saar</i>
+						<br /><br />
+						Level design and artwork:
+						<br /><br />
+						<i>Martin Buchner</i>
+						<br /><br />
+						Coding and webpage:
+						<br /><br />
+						<i>Florian Rappl</i>
+						<br /><br />
+						This game was not made and is not supported by Nintendo.
+						<br /><br /><br />
+						All graphics, music and sounds were taken from the original &quot;Super Mario Bros.&quot; game series without Nintendo&#39;s explicit knowledge or permission.
+						<br /><br /><br />
+						The story of this game as well as it&#39;s characters are not related to any person and remain pure fiction.
+						<br /><br /><br />
+						Similarities with living or deceased persons are coincidences and have not been intended.
+						<br />
+					</div>
+				</div>
+			</div>
+			<div id="levelloading" class="section">
+			<!-- This is intentionally empty. -->
+			</div>
+			<div id="ajax" class="section">
+			<!-- This is intentionally empty. -->
+			</div>
+		</div>
+		<div id="bottompanel">
+			<nav id="bottomnav">
+				<div id="menu_buttons">
+					<div id="newGame" class="bottommenu">Play</div>
+					<div id="customGame" class="bottommenu">Choose level</div>
+					<div id="editGame" class="bottommenu">Create level</div>
+				</div>
+				<div id="continue_buttons">
+					<div id="noContinue" class="bottommenu">New game</div>
+					<div id="yesContinue" class="bottommenu">Continue game</div>
+				</div>
+				<div id="edit_buttons">
+					<div id="playEdit" class="bottommenu smallbutton">Play</div>
+					<div id="gridEdit" class="bottommenu smallbutton">Grid</div>
+					<div id="undoEdit" class="bottommenu smallbutton">Undo</div>
+					<div id="saveEdit" class="bottommenu smallbutton">Save</div>
+				</div>
+				<div id="editor_buttons">
+					<div id="newEditor" class="bottommenu">New level</div>
+					<div id="lastEditor" class="bottommenu">Continue</div>
+					<div id="loadEditor" class="bottommenu">Load level</div>
+				</div>
+				<div id="game_buttons">
+					<div id="aButton" class="bottommenu button">a</div>
+					<div id="lButton" class="bottommenu button">&larr;</div>
+					<div id="uButton" class="bottommenu button">&uarr;</div>
+					<div id="rButton" class="bottommenu button">&rarr;</div>
+					<div id="dButton" class="bottommenu button">&darr;</div>
+				</div>
+			</nav>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+		<script src="Scripts/mario.js"></script>
+	</body>
+</html>

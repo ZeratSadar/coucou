@@ -1,0 +1,69 @@
+#barrenav{
+
+
+  position: absolute;
+  top: 20px;
+  font-size: 13px;
+
+  width: 100%;
+}
+
+.gmail{
+float: right;
+margin-right: 20px;
+
+}
+
+.image{
+
+float: right;
+margin-right: 20px;
+}
+
+.carre{
+
+float: right;
+margin-right: 20px;
+}
+
+.connexion{
+float: right;
+margin-right: 20px;
+}
+
+
+.color{
+text-align: center;
+  font-size: 80px;
+  font-weight: bold;
+  margin-top: 20%;
+  margin-left: -12px;
+Letter-Spacing: -8pt;
+
+}
+
+
+
+.rech{
+
+  -webkit-box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+  padding: 5px 9px 0;
+  width: 543px;
+  height: 38px;
+  margin-left: 30%;
+
+}
+.sousrech{
+margin-left: 35%;
+margin-top: 20px;
+
+}
+
+.luck{
+
+  margin-left: 25px;
+  margin-top: 20px;
+
+}
